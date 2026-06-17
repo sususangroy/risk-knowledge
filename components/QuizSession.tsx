@@ -41,13 +41,15 @@ export default function QuizSession({ questions }: { questions: Question[] }) {
     }
   }
 
-  const isCorrect = (opt: string) => q.answer.includes(opt)
+  const isCorrect = (opt: string) =>
+    q.answer.includes(opt) || q.answer.some(a => opt.startsWith(a + '.'))
 
   const handleSubmit = () => {
     if (selected.length === 0) return
     setSubmitted(true)
     const correct =
-      selected.length === q.answer.length && selected.every(s => q.answer.includes(s))
+      selected.length === q.answer.length &&
+      selected.every(s => q.answer.includes(s) || q.answer.some(a => s.startsWith(a + '.')))
     if (correct) setScore(s => s + 1)
   }
 
@@ -61,17 +63,26 @@ export default function QuizSession({ questions }: { questions: Question[] }) {
     }
   }
 
+  const STYLES = {
+    correct: 'border-green-500 bg-green-50 text-green-800 font-medium',
+    wrong: 'border-red-400 bg-red-50 text-red-700',
+    selected: 'border-blue-500 bg-blue-50 text-blue-800',
+    revealed: 'border-gray-200 bg-white text-gray-400',
+    idle: 'border-gray-200 hover:border-blue-300 bg-white',
+  }
+
   const optionStyle = (opt: string) => {
     const base = 'w-full text-left px-4 py-3 rounded-lg border transition-all text-sm '
     if (!submitted) {
-      return base + (selected.includes(opt)
-        ? 'border-blue-500 bg-blue-50 text-blue-800'
-        : 'border-gray-200 hover:border-blue-300 bg-white')
+      return base + (selected.includes(opt) ? STYLES.selected : STYLES.idle)
     }
-    if (isCorrect(opt)) return base + 'border-green-500 bg-green-50 text-green-800'
-    if (selected.includes(opt) && !isCorrect(opt)) return base + 'border-red-400 bg-red-50 text-red-700'
-    return base + 'border-gray-200 bg-white text-gray-400'
+    if (isCorrect(opt)) return base + STYLES.correct
+    if (selected.includes(opt)) return base + STYLES.wrong
+    return base + STYLES.revealed
   }
+
+  const answeredCorrectly = submitted &&
+    selected.length === q.answer.length && selected.every(s => q.answer.includes(s))
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -97,10 +108,15 @@ export default function QuizSession({ questions }: { questions: Question[] }) {
       </div>
 
       {submitted && (
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4 text-sm text-gray-700">
-          <p className="font-semibold text-blue-700 mb-1">解析</p>
-          <p>{q.explanation}</p>
-        </div>
+        <>
+          <div className={`rounded-xl px-4 py-3 mb-3 text-sm font-semibold ${answeredCorrectly ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+            {answeredCorrectly ? '✓ 回答正确！' : '✗ 回答错误，正确答案已标绿'}
+          </div>
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4 text-sm text-gray-700">
+            <p className="font-semibold text-blue-700 mb-1">解析</p>
+            <p>{q.explanation}</p>
+          </div>
+        </>
       )}
 
       <div className="flex justify-end">
