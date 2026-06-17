@@ -81,8 +81,13 @@ export default function QuizSession({ questions }: { questions: Question[] }) {
     return base + STYLES.revealed
   }
 
+  const checkAnswer = (s: string) =>
+    q.answer.includes(s) || q.answer.some(a => s.startsWith(a + '.'))
+
   const answeredCorrectly = submitted &&
-    selected.length === q.answer.length && selected.every(s => q.answer.includes(s))
+    selected.length === q.answer.length && selected.every(s => checkAnswer(s))
+
+  const correctLetters = q.answer.map(a => a.length === 1 ? a : a[0]).join('、')
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -110,7 +115,7 @@ export default function QuizSession({ questions }: { questions: Question[] }) {
       {submitted && (
         <>
           <div className={`rounded-xl px-4 py-3 mb-3 text-sm font-semibold ${answeredCorrectly ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
-            {answeredCorrectly ? '✓ 回答正确！' : '✗ 回答错误，正确答案已标绿'}
+            {answeredCorrectly ? '回答正确' : `回答错误，正确答案是 ${correctLetters}`}
           </div>
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4 text-sm text-gray-700">
             <p className="font-semibold text-blue-700 mb-1">解析</p>
