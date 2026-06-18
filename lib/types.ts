@@ -1,4 +1,4 @@
-export type Category = 'basics' | 'strategy' | 'modeling' | 'analytics'
+export type Category = 'basics' | 'strategy' | 'modeling' | 'analytics' | 'overseas'
 export type Role = 'strategy' | 'modeling' | 'analytics'
 export type Difficulty = 'junior' | 'mid' | 'senior'
 export type QuestionType = 'single' | 'multi'
@@ -27,6 +27,7 @@ export const CATEGORIES: Record<Category, { label: string; description: string; 
   strategy: { label: '风控策略', description: '准入、额度、定价与贷后管理', color: 'green' },
   modeling: { label: '风控建模', description: '评分卡、机器学习模型与评估', color: 'purple' },
   analytics: { label: '数据分析', description: '风控数据分析方法与指标监控', color: 'orange' },
+  overseas: { label: '海外市场', description: '东南亚与拉美信贷市场及监管政策', color: 'red' },
 }
 
 export const ROLES: Record<Role, { label: string; description: string }> = {

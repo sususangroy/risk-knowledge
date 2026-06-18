@@ -30,7 +30,7 @@ export function getArticlesByCategory(category: Category): Article[] {
 }
 
 export function getAllArticles(): Article[] {
-  const categories: Category[] = ['basics', 'strategy', 'modeling', 'analytics']
+  const categories: Category[] = ['basics', 'strategy', 'modeling', 'analytics', 'overseas']
   return categories.flatMap(getArticlesByCategory)
 }
 
