@@ -3,6 +3,7 @@ import path from 'path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
+import remarkGfm from 'remark-gfm'
 import { Article, Category, CATEGORIES } from './types'
 
 export type { Article, Category }
@@ -38,7 +39,7 @@ export async function getArticle(category: string, name: string): Promise<Articl
   if (!fs.existsSync(filePath)) return null
   const raw = fs.readFileSync(filePath, 'utf8')
   const { data, content } = matter(raw)
-  const processed = await remark().use(html).process(content)
+  const processed = await remark().use(remarkGfm).use(html, { sanitize: false }).process(content)
   return {
     slug: `${category}/${name}`,
     title: data.title || name,
