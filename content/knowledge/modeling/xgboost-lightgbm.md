@@ -488,6 +488,8 @@ shap.summary_plot(shap_values, X_test, plot_type='bar')
 shap.summary_plot(shap_values, X_test)
 ```
 
+![SHAP 蜂巢图示例](/images/shap-beeswarm.png)
+
 **蜂巢图解读**：
 - 每个点代表一个样本
 - 横轴位置 = 该样本该特征的 SHAP 值（正值推高违约概率，负值降低）
