@@ -9,6 +9,7 @@ export interface Article {
   category: Category
   summary: string
   tags: string[]
+  order?: number
   content?: string
 }
 

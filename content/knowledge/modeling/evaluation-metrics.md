@@ -1,4 +1,5 @@
 ---
+order: 6
 title: "风控建模核心评价指标：WOE、IV、KS、AUC、PSI、Lift 全解"
 category: modeling
 summary: 系统介绍信贷风控建模中最常用的评价指标——WOE/IV（变量预测能力与筛选）、KS/AUC/Lift（模型区分度）、PSI（模型稳定性监控）——包含专业定义、公式推导、代码实现和判断阈值。

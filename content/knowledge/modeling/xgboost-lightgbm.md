@@ -1,4 +1,5 @@
 ---
+order: 9
 title: "XGBoost 与 LightGBM：梯度提升在风控中的实战"
 category: modeling
 summary: 深入介绍梯度提升树的数学原理（目标函数、二阶泰勒展开）、XGBoost 与 LightGBM 的核心技术差异（GOSS、EFB、Leaf-wise）、风控专用参数配置（单调性约束、样本不平衡处理）、SHAP 可解释性全解，以及过拟合诊断与 Optuna 调参。

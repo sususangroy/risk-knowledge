@@ -25,8 +25,9 @@ export function getArticlesByCategory(category: Category): Article[] {
       category,
       summary: data.summary || '',
       tags: data.tags || [],
+      order: data.order ?? 999,
     }
-  })
+  }).sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
 }
 
 export function getAllArticles(): Article[] {

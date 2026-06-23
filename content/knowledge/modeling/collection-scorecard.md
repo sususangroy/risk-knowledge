@@ -1,4 +1,5 @@
 ---
+order: 5
 title: "催收评分卡（C卡）构建思路"
 category: modeling
 summary: 介绍贷后催收评分卡（C卡）的完整建模流程，包括模型分类、样本选择与分群、特征工程和模型选择。
